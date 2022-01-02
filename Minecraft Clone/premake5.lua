@@ -16,6 +16,7 @@ project "Minecraft Clone"
         "**.hpp",
         "**.h",
         "*.lua",
+        "*.dll"
     }
 
     includedirs {
@@ -36,6 +37,10 @@ project "Minecraft Clone"
         "glew32.lib",
         "glew32s.lib",
         "opengl32.lib",
+    }
+
+    linkoptions { 
+        "/NODEFAULTLIB:library" 
     }
 
     filter "configurations:Debug"
