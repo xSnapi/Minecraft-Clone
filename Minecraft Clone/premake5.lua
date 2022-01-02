@@ -2,7 +2,6 @@ project "Minecraft Clone"
     kind "consoleApp"
     language "C++"
     cppdialect "C++17"
-    staticruntime "on"
 
     targetdir "bin/%{cfg.buildcfg}"
     objdir "bin/obj/%{cfg.buildcfg}"
@@ -20,7 +19,8 @@ project "Minecraft Clone"
     }
 
     includedirs {
-        "../include"
+        "../include",
+        "pch"
     }
 
     libdirs {
