@@ -29,7 +29,6 @@ project "Heavy OpenGL"
     libdirs {
         "../libs/GLEW",
         "../libs/GLFW",
-        "../libs/SOIL2",
     }
 
     links {
@@ -42,22 +41,18 @@ project "Heavy OpenGL"
         "/NODEFAULTLIB:library" 
     }
 
+    defines {
+        "GLEW_STATIC",
+    }
+
     filter "configurations:Debug"
         defines {
             "DEBUG"
         }
         symbols "On"
 
-        links {
-            "soil2-debug.lib",
-        }
-
     filter "configurations:Release"
         defines {
             "NDEBUG"
         }
         symbols "On"
-
-        links {
-            "soil2.lib",
-        }
