@@ -12,3 +12,4 @@ workspace "Minecraft"
     system "Windows"
 
 include "Minecraft Clone"
+include "Heavy OpenGL"
