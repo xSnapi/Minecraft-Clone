@@ -1,4 +1,1 @@
-#include <iostream>
-
-#include "GLEW/glew.h"
-#include "GLFW/glfw3.h"
+#include "Heavy OpenGL.hpp"

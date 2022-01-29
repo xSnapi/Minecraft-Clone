@@ -2,6 +2,7 @@ project "Minecraft Clone"
     kind "consoleApp"
     language "C++"
     cppdialect "C++17"
+    staticruntime "on"
 
     targetdir "bin/%{cfg.buildcfg}"
     objdir "bin/obj/%{cfg.buildcfg}"
@@ -21,26 +22,12 @@ project "Minecraft Clone"
 
     includedirs {
         "../include",
-        "pch"
-    }
-
-    libdirs {
-        "../libs/GLEW",
-        "../libs/GLFW",
-        "../libs/SOIL2",
+        "../Heavy OpenGL/include",
+        "pch",
     }
 
     links {
-        "glfw3.lib",
-        "glfw3_mt.lib",
-        "glfw3dll.lib",
-        "glew32.lib",
-        "glew32s.lib",
-        "opengl32.lib",
-    }
-
-    linkoptions { 
-        "/NODEFAULTLIB:library" 
+        "Heavy OpenGL",
     }
 
     filter "configurations:Debug"
@@ -48,17 +35,9 @@ project "Minecraft Clone"
             "DEBUG"
         }
         symbols "On"
-
-        links {
-            "soil2-debug.lib",
-        }
-
-    filter "configurations:Debug"
+        
+    filter "configurations:Release"
         defines {
             "NDEBUG"
         }
         symbols "On"
-
-        links {
-            "soil2.lib",
-        }
