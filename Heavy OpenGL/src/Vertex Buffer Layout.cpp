@@ -29,9 +29,6 @@ void VertexBufferLayout::Push(ElementType type, uint32_t size, uint8_t normalize
 	m_stride += size * Element::GetTypeSize(type);
 }
 
-
-
-espace hv {
 VertexBufferLayout::Element::Element(ElementType type, uint32_t size, uint8_t normalized) 
 	: Type(type)
 	, Size(size)
