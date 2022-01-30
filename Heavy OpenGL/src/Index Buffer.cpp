@@ -1,41 +1,41 @@
 #include <hvpch.h>
 #include "Index Buffer.hpp"
 
-namespace hv {
-	IndexBuffer::IndexBuffer(const void* data, uint32_t bytes) {
-		Append(data, bytes);
-	}
+using namespace hv;
 
-	IndexBuffer::IndexBuffer() {
+IndexBuffer::IndexBuffer(const void* data, uint32_t bytes) {
+	Append(data, bytes);
+}
 
-	}
+IndexBuffer::IndexBuffer() {
 
-	IndexBuffer::~IndexBuffer() {
-		if(m_id)
-			glDeleteBuffers(1, &m_id);
-	}
+}
 
-	void IndexBuffer::Append(const void* data, uint32_t bytes) {
-		m_size = bytes;
+IndexBuffer::~IndexBuffer() {
+	if(m_id)
+		glDeleteBuffers(1, &m_id);
+}
 
-		Create(data);
-	}
+void IndexBuffer::Append(const void* data, uint32_t bytes) {
+	m_size = bytes;
 
-	void IndexBuffer::Bind() const {
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_id);
-	}
+	Create(data);
+}
 
-	void IndexBuffer::Unbind() const {
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-	}
+void IndexBuffer::Bind() const {
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_id);
+}
 
-	uint32_t IndexBuffer::Size() const {
-		return m_size;
-	}
+void IndexBuffer::Unbind() const {
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+}
 
-	void IndexBuffer::Create(const void* data) {
-		glGenBuffers(1, &m_id);
-		Bind();
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_size * sizeof(uint32_t), data, GL_STATIC_DRAW);
-	}
+uint32_t IndexBuffer::Size() const {
+	return m_size;
+}
+
+void IndexBuffer::Create(const void* data) {
+	glGenBuffers(1, &m_id);
+	Bind();
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_size * sizeof(uint32_t), data, GL_STATIC_DRAW);
 }

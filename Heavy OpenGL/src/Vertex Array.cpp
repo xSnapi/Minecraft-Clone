@@ -1,56 +1,55 @@
 #include <hvpch.h>
 #include "Vertex Array.hpp"
 
-namespace hv {
+using namespace hv;
 
-	VertexArray::VertexArray(const VertexBuffer& vertexBuffer, const VertexBufferLayout& layout, const IndexBuffer* indexBuffer) {
-		glGenVertexArrays(1, &m_id);
+VertexArray::VertexArray(const VertexBuffer& vertexBuffer, const VertexBufferLayout& layout, const IndexBuffer* indexBuffer) {
+	glGenVertexArrays(1, &m_id);
 
-		AppendBuffer(vertexBuffer, layout, indexBuffer);
-	}
+	AppendBuffer(vertexBuffer, layout, indexBuffer);
+}
 
-	VertexArray::VertexArray() {
-		glGenVertexArrays(1, &m_id);
-	}
+VertexArray::VertexArray() {
+	glGenVertexArrays(1, &m_id);
+}
 
-	VertexArray::~VertexArray() {
-		if(m_id)
-			glDeleteVertexArrays(1, &m_id);
-	}
+VertexArray::~VertexArray() {
+	if(m_id)
+		glDeleteVertexArrays(1, &m_id);
+}
 
-	void VertexArray::AppendBuffer(const VertexBuffer& vertexBuffer, const VertexBufferLayout& layout, const IndexBuffer* indexBuffer) {
-		m_indexBuffer = indexBuffer;
+void VertexArray::AppendBuffer(const VertexBuffer& vertexBuffer, const VertexBufferLayout& layout, const IndexBuffer* indexBuffer) {
+	m_indexBuffer = indexBuffer;
 
-		Create(vertexBuffer, layout);
-	}
+	Create(vertexBuffer, layout);
+}
 
-	void VertexArray::Bind() const {
-		glBindVertexArray(m_id);
-	}
+void VertexArray::Bind() const {
+	glBindVertexArray(m_id);
+}
 
-	void VertexArray::Unbind() const {
-		glBindVertexArray(0);
-	}
+void VertexArray::Unbind() const {
+	glBindVertexArray(0);
+}
 
-	const IndexBuffer* VertexArray::GetIndexBuffer() const {
-		return m_indexBuffer;
-	}
+const IndexBuffer* VertexArray::GetIndexBuffer() const {
+	return m_indexBuffer;
+}
 
-	void VertexArray::Create(const VertexBuffer& vertexBuffer, const VertexBufferLayout& layout) {
-		Bind();
-		vertexBuffer.Bind();
+void VertexArray::Create(const VertexBuffer& vertexBuffer, const VertexBufferLayout& layout) {
+	Bind();
+	vertexBuffer.Bind();
 
-		const auto& elements = layout.GetElements();
+	const auto& elements = layout.GetElements();
 
-		uint32_t offset = 0;
+	uint32_t offset = 0;
 
-		for (uint32_t i = 0; i < elements.size(); i++) {
-			auto& e = elements[i];
+	for (uint32_t i = 0; i < elements.size(); i++) {
+		auto& e = elements[i];
 
-			glEnableVertexAttribArray(i);
-			glVertexAttribPointer(i, e.Size, VertexBufferLayout::Element::GetGLType(e.Type), e.Normalized, layout.GetStride(), (const void*)offset);
+		glEnableVertexAttribArray(i);
+		glVertexAttribPointer(i, e.Size, VertexBufferLayout::Element::GetGLType(e.Type), e.Normalized, layout.GetStride(), (const void*)offset);
 
-			offset += e.Size * VertexBufferLayout::Element::GetTypeSize(e.Type);
-		}
+		offset += e.Size * VertexBufferLayout::Element::GetTypeSize(e.Type);
 	}
 }
