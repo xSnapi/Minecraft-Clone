@@ -48,7 +48,10 @@ void VertexArray::Create(const VertexBuffer& vertexBuffer, const VertexBufferLay
 		auto& e = elements[i];
 
 		glEnableVertexAttribArray(i);
+
+		#pragma warning(disable : 4312)
 		glVertexAttribPointer(i, e.Size, VertexBufferLayout::Element::GetGLType(e.Type), e.Normalized, layout.GetStride(), (const void*)offset);
+		#pragma warning(default : 4312)
 
 		offset += e.Size * VertexBufferLayout::Element::GetTypeSize(e.Type);
 	}

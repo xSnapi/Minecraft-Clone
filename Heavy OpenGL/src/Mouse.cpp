@@ -51,6 +51,6 @@ glm::vec2 Mouse::GetPosition(const hv::Window& window) {
 }
 
 void Mouse::MouseCallback(GLFWwindow* window, double x, double y) {
-	s_pos.x = x;
-	s_pos.y = y;
+	s_pos.x = (float)x;
+	s_pos.y = (float)y;
 }

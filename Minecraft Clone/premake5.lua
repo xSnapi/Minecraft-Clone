@@ -31,7 +31,8 @@ project "Minecraft Clone"
     }
 
 	linkoptions { 
-        "/NODEFAULTLIB:library" 
+        "/NODEFAULTLIB:libcmt.lib",
+        "/ignore:4099"
     }
 
     filter "configurations:Debug"
