@@ -20,6 +20,13 @@ private:
 
 	glm::mat4 mat = glm::mat4(1.0f);
 
+	hv::Clock m_clock;
+
+	hv::Camera m_camera;
+
+	hv::RectangleShape m_square;
+	hv::CircleShape m_circle;
+
 	void InitShaders();
 
 	void Update();

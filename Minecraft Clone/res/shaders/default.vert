@@ -11,7 +11,7 @@ uniform mat4 u_transform;
 uniform mat4 u_projection;
 
 void main() {
-	gl_Position = u_transform * position;
+	gl_Position = u_projection * u_transform * position;
 	i_texCoord  = texCoord;
 	i_color		= color;
 }
