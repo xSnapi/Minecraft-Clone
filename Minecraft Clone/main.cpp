@@ -1,12 +1,10 @@
 #include "mcpch.h"
 
-int main() {
-	hv::Window window;
-	window.Create(800, 800, "Minecraft");
+#include "Application.hpp"
 
-	while (window.IsOpen()) {
-		window.Clear();
-		window.Display();
-		glfwPollEvents();
-	}
+int main() {
+	Application application;
+	application.Run();
+
+	return EXIT_SUCCESS;
 }

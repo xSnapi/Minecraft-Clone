@@ -30,6 +30,10 @@ project "Minecraft Clone"
         "Heavy OpenGL",
     }
 
+	linkoptions { 
+        "/NODEFAULTLIB:library" 
+    }
+
     filter "configurations:Debug"
         defines {
             "DEBUG"
