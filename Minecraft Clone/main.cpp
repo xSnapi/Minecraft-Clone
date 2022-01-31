@@ -4,7 +4,11 @@
 
 int main() {
 	Application application;
-	application.Run();
+
+	while (application.IsOpen()) {
+		application.Update();
+		application.Render();
+	}
 
 	return EXIT_SUCCESS;
 }
