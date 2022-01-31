@@ -15,6 +15,7 @@ namespace hv {
 		~VertexBuffer();
 
 		void Append(const void* data, uint32_t size, Type type);
+		uint8_t* Data(uint32_t offset = 0);
 
 		void Bind() const;
 		void Unbind() const;
