@@ -5,25 +5,32 @@ namespace hv {
 	public:
 		enum class Type 
 		{
-			Draw = 0,
+			Static = 0,
+			Dynamic,
 		};
 
-		VertexBuffer(const void* data, uint32_t size, Type type = Type::Draw);
+		VertexBuffer(const void* data, uint32_t size, Type type = Type::Static);
 
 		VertexBuffer();
 
 		~VertexBuffer();
 
-		void Append(const void* data, uint32_t size, Type type);
-		uint8_t* Data(uint32_t offset = 0);
+		uint8_t* Data(uint32_t offset = 0) const;
+		void Allocate(const void* data, uint32_t size, Type type);
+		void Reallocate(const void* data, uint32_t size, uint32_t offset, Type type);
+		void Clear();
 
 		void Bind() const;
 		void Unbind() const;
 
+		Type GetType() const;
+
 	private:
 		uint32_t m_id = 0;
-		
-		Type m_type = Type::Draw;
+
+		uint32_t m_size = 0;
+
+		Type m_type = Type::Static;
 
 		void Create(const void* data, uint32_t size);
 

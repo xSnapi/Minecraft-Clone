@@ -9,7 +9,10 @@ namespace hv {
 
 		~IndexBuffer();
 
-		void Append(const void* data, uint32_t bytes);
+		uint8_t* Data(uint32_t offset = 0) const;
+		void Allocate(const void* data, uint32_t bytes);
+		void Reallocate(const void* data, uint32_t bytes, uint32_t offset);
+		void Clear();
 
 		void Bind() const;
 		void Unbind() const;
