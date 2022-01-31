@@ -5,6 +5,8 @@
 #include "Core.hpp"
 #include "Heavy Times.hpp"
 
+#include "Heavy Utilities.hpp"
+
 #include "Camera.hpp"
 
 #include "Mouse.hpp"
