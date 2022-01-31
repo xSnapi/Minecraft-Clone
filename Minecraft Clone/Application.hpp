@@ -2,6 +2,8 @@
 
 #include "mcpch.h"
 
+class Game;
+
 class Application {
 public:
 	Application();
@@ -10,7 +12,8 @@ public:
 	void Update();
 	void Render();
 
-	bool IsOpen() const;
+	static hv::Window s_window;
+
 private:
-	hv::Window m_window;
+	Game* m_game = nullptr;
 };

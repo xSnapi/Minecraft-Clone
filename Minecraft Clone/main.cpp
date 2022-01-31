@@ -5,7 +5,7 @@
 int main() {
 	Application application;
 
-	while (application.IsOpen()) {
+	while (application.s_window.IsOpen()) {
 		application.Update();
 		application.Render();
 	}
