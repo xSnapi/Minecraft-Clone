@@ -26,7 +26,7 @@ namespace hv {
 
 		void Draw(Drawable& drawable, const Shader* shader = nullptr);
 
-		void Draw(const VertexArray& vertexArray, Primitives type, const Shader* shader = nullptr, const Texture* texture = nullptr, const IndexBuffer* indexBuffer = nullptr);
+		void Draw(const VertexArray& vertexArray, Primitives type, const Shader* shader = nullptr, const Texture* texture = nullptr, const IndexBuffer* indexBuffer = nullptr, bool _2D = false);
 
 	private:
 		static Shader* m_defaultShader;

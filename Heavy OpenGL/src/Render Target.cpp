@@ -50,7 +50,7 @@ void RenderTarget::Draw(Drawable& drawable, const Shader* shader) {
 	drawable.Draw(*this);
 }
 
-void RenderTarget::Draw(const VertexArray& vertexArray, Primitives type, const Shader* shader, const Texture* texture, const IndexBuffer* indexBuffer) {
+void RenderTarget::Draw(const VertexArray& vertexArray, Primitives type, const Shader* shader, const Texture* texture, const IndexBuffer* indexBuffer, bool _2D) {
 	vertexArray.Bind();
 
 	if (shader)
@@ -73,6 +73,11 @@ void RenderTarget::Draw(const VertexArray& vertexArray, Primitives type, const S
 	HV_DEBUG_ASSERT(size); // Size was 0 
 
 	uint32_t glType = GetGLPrimitive(type);
+
+	if (!_2D)
+		glEnable(GL_DEPTH_TEST);
+	else
+		glDisable(GL_DEPTH_TEST);
 
 	glDrawElements(glType, size, GL_UNSIGNED_INT, nullptr);
 }
