@@ -22,6 +22,14 @@ void VertexBuffer::Append(const void* data, uint32_t size, Type type) {
 	Create(data, size);
 }
 
+uint8_t* VertexBuffer::Data(uint32_t offset) {
+	Bind();
+	uint8_t* data = (uint8_t*)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
+	glUnmapBuffer(GL_ARRAY_BUFFER);
+
+	return &data[offset];
+}
+
 void VertexBuffer::Bind() const {
 	glBindBuffer(GL_ARRAY_BUFFER, m_id);
 }
