@@ -6,7 +6,7 @@ using namespace hv;
 RectangleShape::RectangleShape() 
 	: m_size(0.0f, 0.0f)
 {
-	m_vertexBuffer.Append(0, sizeof(Vertex2D) * 4, VertexBuffer::Type::Draw);
+	m_vertexBuffer.Allocate(0, sizeof(Vertex2D) * 4, VertexBuffer::Type::Static);
 
 	m_layout.Add(ElementType::Float, 2);
 	m_layout.Add(ElementType::Float, 2);
@@ -18,7 +18,7 @@ RectangleShape::RectangleShape()
 		2, 3, 0
 	};
 
-	m_indexBuffer.Append(indices, 6);
+	m_indexBuffer.Allocate(indices, 6);
 
 	m_vertexArray.AppendBuffer(m_vertexBuffer, m_layout, &m_indexBuffer);
 }
