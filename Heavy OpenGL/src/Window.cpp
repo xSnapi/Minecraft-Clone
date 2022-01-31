@@ -1,12 +1,22 @@
 #include <hvpch.h>
 #include "Window.hpp"
 
+#define GLFW_EXPOSE_NATIVE_WIN32
+
+#include <GLFW/glfw3native.h>
+
 #include "stb_image.hpp"
+
+#include "Heavy Times.hpp"
+#include "Mouse.hpp"
+
+#include "Shape.hpp"
 
 using namespace hv;
 
 Window::Window(uint32_t width, uint32_t height, std::string title, Style style) {
 	system("cls");
+
 	Create(width, height, title, style);
 }
 
@@ -41,15 +51,28 @@ void Window::Create(uint32_t width, uint32_t height, std::string title, Style st
 	}
 
 	InitDefaultSettings();
+
+	CenterWindow();
 }
 
 void Window::Display() { 
 	glfwSwapBuffers(m_window);
+	Times::DT = m_deltaClock.Restart();
 }
 
 void Window::Clear(glm::vec4 color) {
 	glClearColor(color.r, color.g, color.b, color.a);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+void hv::Window::CaptureMouse(bool var) {
+	glfwSetInputMode(m_window, GLFW_CURSOR, var ? GLFW_CURSOR_DISABLED : GLFW_CURSOR_NORMAL);
+
+	Mouse::s_locked = var;
+}
+
+void* hv::Window::GetHandle() const {
+	return glfwGetWin32Window(m_window);
 }
 
 bool Window::IsOpen() const {
@@ -102,14 +125,39 @@ bool Window::InitWindow() {
 	return true;
 }
 
+void Window::CenterWindow() {
+	const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+
+	glfwSetWindowPos
+	(
+		m_window, 
+		mode->width  / 2 - (int)m_width  / 2, 
+		mode->height / 2 - (int)m_height / 2
+	);
+}
+
 void Window::InitDefaultSettings() {
-	stbi_set_flip_vertically_on_load(true);
+	{
+		stbi_set_flip_vertically_on_load(true);
+	}
 
-	RenderTarget::Init();
+	{
+		glfwSetCursorPosCallback(m_window, Mouse::MouseCallback);
+	}
 
-	std::cout << glGetString(GL_VERSION) << '\n';
+	{
+		glDepthFunc(GL_LESS);
+	}
 
-	glEnable(GL_DEPTH_TEST);
-	glDepthFunc(GL_LESS);
+	{
+		glm::mat4 projection = glm::ortho(0.0f, (float)m_width, 0.0f, (float)m_height, -1000.0f, 1000.0f);
+		Shape::Init(projection);
+	}
+
+	{
+		RenderTarget::Init();
+	}
+
+	Debug::Log(Color::Green, "[Window initialized ", glGetString(GL_VERSION), "]");
 }
 
